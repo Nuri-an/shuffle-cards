@@ -9,7 +9,7 @@
     "test-all": "jest --watchAll",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "commit": "yarn test && lint-staged &&  git-cz"
+    "commit": "yarn test && lint-staged && git-cz"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
