@@ -8,19 +8,13 @@ interface InputProps {
   register: UseFormRegister<any>;
 }
 
-const Input: React.FC<InputProps> = ({
-  placeholder,
-  name,
-  register,
-  ...props
-}) => {
+const Input: React.FC<InputProps> = ({ placeholder, name, register }) => {
   return (
     <S.Container data-testid="input-container">
       <S.Input
         placeholder={placeholder}
         data-testid="input"
         {...register(name)}
-        {...props}
       />
     </S.Container>
   );

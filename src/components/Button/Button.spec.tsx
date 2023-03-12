@@ -12,14 +12,15 @@ describe('Button Component', () => {
   it('should render a component', () => {
     renderWithTheme(<Button bgColor={primaryColor} onClick={() => {}} />);
     const primaryButton = screen.getByTestId('button');
+
     expect(primaryButton).toBeInTheDocument();
   });
 
   it('should be allow click', () => {
     renderWithTheme(<Button bgColor={primaryColor} onClick={() => {}} />);
     const primaryButton = screen.getByTestId('button');
+
     userEvent.click(primaryButton);
-    expect(primaryButton).toBeInTheDocument();
   });
 
   it('should render a button with text', () => {
@@ -29,15 +30,14 @@ describe('Button Component', () => {
         {buttonText}
       </Button>,
     );
+
     expect(screen.getByText(buttonText)).toBeInTheDocument();
-    const primaryButton = screen.getByTestId('button');
-    expect(primaryButton).toBeInTheDocument();
   });
 
   it('should render a button with primary color', () => {
     renderWithTheme(<Button bgColor={primaryColor} onClick={() => {}} />);
     const primaryButton = screen.getByTestId('button');
-    expect(primaryButton).toBeInTheDocument();
+
     expect(getComputedStyle(primaryButton).backgroundColor).toBe(
       HexToRgb(primaryColor),
     );
@@ -46,7 +46,7 @@ describe('Button Component', () => {
   it('should render a button with secondary color', () => {
     renderWithTheme(<Button bgColor={secondaryColor} onClick={() => {}} />);
     const secondaryButton = screen.getByTestId('button');
-    expect(secondaryButton).toBeInTheDocument();
+
     expect(getComputedStyle(secondaryButton).backgroundColor).toBe(
       HexToRgb(secondaryColor),
     );

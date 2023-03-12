@@ -31,12 +31,7 @@ const Login: React.FC = () => {
     <S.Wrapper data-testid="login">
       <S.LogoImage src={logo} data-testid="login-img" />
       <S.Form>
-        <Input
-          placeholder="Nome"
-          name="name"
-          register={register}
-          data-testid="login-input"
-        />
+        <Input placeholder="Nome" name="name" register={register} />
         {error && (
           <S.EmptyInput data-testid="login-error">
             Informe seu nome

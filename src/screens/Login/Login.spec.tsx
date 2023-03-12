@@ -8,7 +8,7 @@ describe('Button Component', () => {
     renderWithTheme(<Login />);
     const loginScreen = screen.getByTestId('login');
     const loginImg = screen.getByTestId('login-img');
-    const loginInput = screen.getByTestId('login-input');
+    const loginInput = screen.getByTestId('input');
 
     expect(loginScreen).toBeInTheDocument();
     expect(loginImg).toBeInTheDocument();
@@ -24,9 +24,9 @@ describe('Button Component', () => {
 
   it('should render the button is visible when showing', async () => {
     renderWithTheme(<Login />);
-    const loginInput = screen.getByTestId('login-input');
-    const inputValue = 'This is a test';
-    userEvent.type(loginInput, inputValue);
+    const loginInput = screen.getByTestId('input');
+    userEvent.type(loginInput, 'This is a test');
+
     await waitFor(() => {
       const loginButton = screen.getByTestId('login-button');
       expect(getComputedStyle(loginButton).visibility).toBe('visible');
@@ -36,32 +36,32 @@ describe('Button Component', () => {
 
   it('should render the button when type in input', async () => {
     renderWithTheme(<Login />);
-    const loginInput = screen.getByTestId('login-input');
-    const inputValue = 'This is a test';
-    userEvent.type(loginInput, inputValue);
+    const loginInput = screen.getByTestId('input');
+    userEvent.type(loginInput, 'This is a test');
+
     await waitFor(() => {
       expect(screen.getByTestId('login-button')).toBeInTheDocument();
     });
   });
 
-  /* it('should return error message when click button and input empty', async () => {
+  it('should return error message when click button and input empty', async () => {
     renderWithTheme(<Login />);
-    const loginButton = screen.getByTestId('login-button');
-    loginButton.style.visibility = 'visible';
-    loginButton.style.opacity = '1';
-    userEvent.click(loginButton);
+    const loginButton = screen.getByTestId('button');
+    await userEvent.click(loginButton);
+
     await waitFor(() => {
-      expect(screen.getByTestId('login-error')).toBeInTheDocument();
+      expect(screen.getByTestId('login-error')).toBeVisible();
     });
-  }); */
+  });
 
   it('should not return error message when click button and input thing', () => {
     renderWithTheme(<Login />);
+    const loginInput = screen.getByTestId('input');
+    userEvent.type(loginInput, 'This is a test');
+
     const loginButton = screen.getByTestId('login-button');
-    const loginInput = screen.getByTestId('login-input');
-    const inputValue = 'This is a test';
-    userEvent.type(loginInput, inputValue);
     userEvent.click(loginButton);
+
     const loginError = screen.queryByTestId('login-error');
     expect(loginError).toBeNull();
   });
