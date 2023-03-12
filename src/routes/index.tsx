@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { StoragePrefix } from 'utils/enum';
-import { authSelector, login, logout } from 'redux/authSlice';
+import { StoragePrefix } from 'src/utils/enum';
+import { authSelector, login, logout } from 'src/redux/authSlice';
 
-import { useAppDispatch } from 'redux/hooks';
+import { useAppDispatch } from 'src/redux/hooks';
 import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';
 

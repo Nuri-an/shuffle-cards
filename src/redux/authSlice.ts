@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { StoragePrefix } from 'utils/enum';
+import { StoragePrefix } from 'src/utils/enum';
 import { RootState } from './rootReducer';
 
 const initialState: SessionType = {
