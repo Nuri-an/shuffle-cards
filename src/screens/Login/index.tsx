@@ -1,35 +1,38 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Logo } from 'src/assets';
 import { Button, Input } from 'src/components';
+import { login } from 'src/redux/authSlice';
+import { useAppDispatch } from 'src/redux/hooks';
 import { useTheme } from 'styled-components';
 import * as S from './styles';
-import logo from '../../assets/logo.svg';
 
 type FormData = {
   name: string;
 };
 
 const Login: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { register, handleSubmit, watch } = useForm<FormData>();
   const [error, setError] = useState(false);
   const { colors } = useTheme();
 
-  const onGoToCards = (data: FormData) => {
+  const onGoToCards = ({ name }: FormData) => {
     if (!watch('name')) {
       setError(true);
       setTimeout(() => {
         setError(false);
-      }, 5000);
+      }, 3000);
       return;
     }
-    console.log(data);
+    dispatch(login(name));
   };
 
   const onSubmit = handleSubmit(onGoToCards);
 
   return (
     <S.Wrapper data-testid="login">
-      <S.LogoImage src={logo} data-testid="login-img" />
+      <S.LogoImage src={Logo} data-testid="login-img" />
       <S.Form>
         <Input placeholder="Nome" name="name" register={register} />
         {error && (
