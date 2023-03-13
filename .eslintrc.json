@@ -55,6 +55,13 @@
           "./src/utils/functions/*"
         ]
       }
+    ],
+    "react/require-default-props": [
+      1,
+      {
+        "forbidDefaultForRequired": true,
+        "functions": "defaultArguments"
+      }
     ]
   },
   "overrides": [

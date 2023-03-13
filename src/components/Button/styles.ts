@@ -1,8 +1,9 @@
 import { breakpoints } from 'src/styles/breakpoints';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface ContainerProps {
   bgColor: string;
+  disable: boolean;
 }
 
 export const Container = styled.button<ContainerProps>`
@@ -12,6 +13,14 @@ export const Container = styled.button<ContainerProps>`
     `${theme.space.inset.xs}px ${theme.space.inset.lg}px`};
   border-radius: ${({ theme }) => theme.border.radius.md}px;
   color: ${({ theme }) => theme.colors.neutral.lightest};
+  width: fit-content;
+
+  ${({ disable, theme }) =>
+    disable &&
+    css`
+      background-color: ${theme.colors.neutral.dark};
+      box-shadow: 0px 4px 4px ${theme.colors.neutral.darkest};
+    `}
 
   @media (min-width: ${breakpoints.xl}) {
     padding: ${({ theme }) =>

@@ -16,11 +16,20 @@ describe('Button Component', () => {
     expect(primaryButton).toBeInTheDocument();
   });
 
-  it('should be allow click', () => {
+  it('should be allow click', async () => {
     renderWithTheme(<Button bgColor={primaryColor} onClick={() => {}} />);
     const primaryButton = screen.getByTestId('button');
 
-    userEvent.click(primaryButton);
+    await userEvent.click(primaryButton);
+  });
+
+  it('should not be allow click when disable', () => {
+    renderWithTheme(
+      <Button bgColor={primaryColor} onClick={() => {}} disable />,
+    );
+    const primaryButton = screen.getByTestId('button');
+
+    expect(primaryButton).toBeDisabled();
   });
 
   it('should render a button with text', () => {
