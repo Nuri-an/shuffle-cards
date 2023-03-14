@@ -22,6 +22,7 @@ describe('Cards Screen', () => {
     const cardsContainerButtons = screen.getByTestId('container-buttons');
     const cardsButton = screen.getAllByTestId('button');
     const cardsContent = screen.getByTestId('content-cards');
+    const cardsLoading = screen.getByTestId('loading-cards');
 
     expect(cards).toBeInTheDocument();
     expect(cardsHeader).toBeInTheDocument();
@@ -29,12 +30,17 @@ describe('Cards Screen', () => {
     expect(cardsContainerButtons).toBeInTheDocument();
     expect(cardsButton).toHaveLength(2);
     expect(cardsContent).toBeInTheDocument();
+    expect(cardsLoading).toBeInTheDocument();
   });
 
   it('should render 5 card components first', async () => {
     renderWithProviders(<Cards />);
+    const cardsLoading = screen.queryByTestId('loading-cards');
 
-    expect(await screen.findAllByTestId('box-card')).toHaveLength(5);
+    await waitFor(async () => {
+      expect(await screen.findAllByTestId('box-card')).toHaveLength(5);
+    });
+    expect(cardsLoading).not.toBeInTheDocument();
   });
 
   it('should render the add card button', () => {
@@ -47,10 +53,12 @@ describe('Cards Screen', () => {
   it('should add 1 new card when add button was clicked', async () => {
     renderWithProviders(<Cards />);
 
-    expect(await screen.findAllByTestId('box-card')).toHaveLength(5);
+    await waitFor(async () => {
+      expect(await screen.findAllByTestId('box-card')).toHaveLength(5);
+    });
 
-    const cardsAddButton = screen.getAllByTestId('button');
-    await userEvent.click(cardsAddButton[0]);
+    const cardsAddButton = screen.getByText('Puxar mais uma carta');
+    await userEvent.click(cardsAddButton);
 
     expect(await screen.findAllByTestId('box-card')).toHaveLength(6);
   });
@@ -58,11 +66,12 @@ describe('Cards Screen', () => {
   it('should add 2 new card when add button was clicked', async () => {
     renderWithProviders(<Cards />);
 
-    expect(await screen.findAllByTestId('box-card')).toHaveLength(5);
+    await waitFor(async () => {
+      expect(await screen.findAllByTestId('box-card')).toHaveLength(5);
+    });
 
-    const cardsAddButton = screen.getAllByTestId('button');
-    await userEvent.click(cardsAddButton[0]);
-    await userEvent.click(cardsAddButton[0]);
+    const cardsAddButton = screen.getByText('Puxar mais uma carta');
+    await userEvent.dblClick(cardsAddButton);
 
     expect(await screen.findAllByTestId('box-card')).toHaveLength(7);
   });
@@ -70,69 +79,61 @@ describe('Cards Screen', () => {
   it('should add 3 new card when add button was clicked', async () => {
     renderWithProviders(<Cards />);
 
-    waitFor(() => {
-      const cardsBoxCard = screen.getAllByTestId('box-card');
-      expect(cardsBoxCard).toHaveLength(5);
+    await waitFor(async () => {
+      expect(await screen.findAllByTestId('box-card')).toHaveLength(5);
     });
 
     const cardsAddButton = screen.getByText('Puxar mais uma carta');
-    await userEvent.click(cardsAddButton);
-    await userEvent.click(cardsAddButton);
-    await userEvent.click(cardsAddButton);
+    await userEvent.tripleClick(cardsAddButton);
 
-    waitFor(() => {
-      const cardsBoxCard = screen.getAllByTestId('box-card');
-      expect(cardsBoxCard).toHaveLength(8);
-    });
+    expect(await screen.findAllByTestId('box-card')).toHaveLength(8);
   });
 
   it('should not add new card when add button was clicked more then 3 times', async () => {
     renderWithProviders(<Cards />);
 
-    waitFor(() => {
-      const cardsBoxCard = screen.getAllByTestId('box-card');
-      expect(cardsBoxCard).toHaveLength(5);
+    await waitFor(async () => {
+      expect(await screen.findAllByTestId('box-card')).toHaveLength(5);
     });
 
     const cardsAddButton = screen.getByText('Puxar mais uma carta');
     await userEvent.tripleClick(cardsAddButton);
 
-    waitFor(() => {
-      const cardsBoxCard = screen.getAllByTestId('box-card');
-      expect(cardsBoxCard).toHaveLength(8);
-    });
+    expect(await screen.findAllByTestId('box-card')).toHaveLength(8);
 
     await userEvent.click(cardsAddButton);
-    waitFor(() => {
-      const cardsBoxCard = screen.getAllByTestId('box-card');
-      expect(cardsBoxCard).toHaveLength(8);
-    });
+
+    expect(await screen.findAllByTestId('box-card')).toHaveLength(8);
   });
 
   it("should be disable the add button when it's clicked 3 times", async () => {
     renderWithProviders(<Cards />);
-    const cardsAddButton = screen.getByText('Puxar mais uma carta');
+    const cardsAddButton = screen.getByText(
+      'Puxar mais uma carta',
+    ) as HTMLButtonElement;
     await userEvent.tripleClick(cardsAddButton);
 
-    waitFor(() => {
-      expect(cardsAddButton).toBeDisabled();
-    });
+    expect(cardsAddButton.disabled).toBeTruthy();
   });
 
   it('should be shuffle cards when shuffle button was clicked', async () => {
     renderWithProviders(<Cards />);
 
-    const cardsBoxCardBefore: HTMLDivElement[] = await screen.findAllByTestId(
-      'box-card',
-    );
-    expect(cardsBoxCardBefore).toHaveLength(5);
+    const cardsBoxCardBefore = await screen.findAllByTestId('box-card');
+
+    await waitFor(async () => {
+      expect(cardsBoxCardBefore).toHaveLength(5);
+    });
     const idsCardBefore = cardsBoxCardBefore.map((card) => card.id);
 
     const cardsShuffleButton = screen.getAllByTestId('button');
     await userEvent.click(cardsShuffleButton[1]);
 
     const cardsBoxCardAfter = await screen.findAllByTestId('box-card');
-    expect(cardsBoxCardAfter).toHaveLength(5);
+
+    await waitFor(async () => {
+      expect(cardsBoxCardAfter).toHaveLength(5);
+    });
     const idsCardAfter = cardsBoxCardAfter.map((card) => card.id);
 
     expect(idsCardBefore.toString()).not.toBe(idsCardAfter.toString());
