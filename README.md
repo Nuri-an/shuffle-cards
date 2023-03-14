@@ -64,5 +64,5 @@ Aqui, foram utilizadas as seguintes:
 ## 🚀 Como testar <a name="rodar"></a>
 1. Clone este repositório em sua máquina
 2. Instale as dependências com ``[npm|yarn] install``
-  2.1. Caso não haja compatibilidade com versões do node e não esteja utilizando nvm, rode o comando acima com ``[npm|yarn] install --ignore-engines``
-3. Inicie o projeto ``[npm|yarn] start``
+3. Caso não haja compatibilidade com versões do node e não esteja utilizando nvm, rode o comando acima com ``[npm|yarn] install --ignore-engines``
+4. Inicie o projeto ``[npm|yarn] start``
