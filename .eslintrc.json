@@ -6,6 +6,7 @@
   "extends": [
     "plugin:react/recommended",
     "airbnb",
+    "prettier",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -16,8 +17,59 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "eslint-plugin-import-helpers",
+    "prettier"
+  ],
   "rules": {
-    "prettier/prettier": "error"
-  }
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".tsx", ".ts"]
+      }
+    ],
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "warn",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.spec.ts",
+          "**/*.spec.tsx",
+          "./src/utils/functions/*"
+        ]
+      }
+    ],
+    "react/require-default-props": [
+      1,
+      {
+        "forbidDefaultForRequired": true,
+        "functions": "defaultArguments"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ]
 }

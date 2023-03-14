@@ -1,0 +1,20 @@
+declare type MemberType = {
+  MemberId: number;
+  createdAt: string;
+  type: 'USER' | 'ORGANIZATION' | 'COLLECTIVE';
+  role: 'ADMIN' | 'MEMBER' | 'BACKER' | 'ATTENDEE' | 'FOLLOWER' | 'HOST';
+  isActive: boolean;
+  totalAmountDonated: number;
+  currency: string;
+  lastTransactionAt: string;
+  lastTransactionAmount: number;
+  profile: string;
+  name: string;
+  company: string;
+  description: string;
+  image: string;
+  email: string;
+  twitter: string;
+  github: string;
+  website: string;
+};
