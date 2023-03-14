@@ -25,6 +25,11 @@ export const Content = styled.section`
   }
 `;
 
+export const LoadingContent = styled.p`
+  margin-top: 10px;
+  color: ${({ theme }) => theme.colors.neutral.lightest};
+`;
+
 export const BoxCard = styled.div`
   &:nth-child(even) {
     margin-top: -16px;

@@ -84,21 +84,28 @@ const Cards: React.FC = () => {
           </Button>
         </S.BoxButtons>
         <S.Content data-testid="content-cards">
-          {members?.map((member) => (
-            <S.BoxCard
-              data-testid="box-card"
-              id={`${member.MemberId}`}
-              key={member.MemberId}
-            >
-              <Card
-                value={member.randonValue}
-                image={member.image}
-                title={member.name}
-                description={member.description}
-                profileUrl={member.profile}
-              />
-            </S.BoxCard>
-          ))}
+          {!members?.length ? (
+            <S.LoadingContent data-testid="loading-cards">
+              {' '}
+              Buscando cartas...
+            </S.LoadingContent>
+          ) : (
+            members?.map((member) => (
+              <S.BoxCard
+                data-testid="box-card"
+                id={`${member.MemberId}`}
+                key={member.MemberId}
+              >
+                <Card
+                  value={member.randonValue}
+                  image={member.image}
+                  title={member.name}
+                  description={member.description}
+                  profileUrl={member.profile}
+                />
+              </S.BoxCard>
+            ))
+          )}
         </S.Content>
       </S.Container>
     </div>
