@@ -8,7 +8,7 @@ import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';
 
 const Routes: React.FC = () => {
-  const user = useSelector(authSelector);
+  const { isLogged } = useSelector(authSelector);
   const dispatch = useAppDispatch();
 
   const fetchUser = () => {
@@ -31,7 +31,7 @@ const Routes: React.FC = () => {
     handleExpiredSession();
   }, []);
 
-  return user.isLogged ? <AppRoutes /> : <AuthRoutes />;
+  return isLogged ? <AppRoutes /> : <AuthRoutes />;
 };
 
 export default Routes;
