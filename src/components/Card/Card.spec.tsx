@@ -35,6 +35,21 @@ describe('Card Component', () => {
     expect(cardDescription).toBeInTheDocument();
   });
 
+  it('should be formatted card value', async () => {
+    renderWithTheme(
+      <Card
+        value={1}
+        image={defaulImage}
+        description=""
+        title=""
+        profileUrl={defaultProfile}
+      />,
+    );
+
+    const cardValue = screen.getByText('01');
+    expect(cardValue).toBeInTheDocument();
+  });
+
   it('should be allow click in link', async () => {
     renderWithTheme(
       <Card
